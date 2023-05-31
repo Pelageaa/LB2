@@ -1,0 +1,59 @@
+package MyClass;
+import javax.swing.JFrame;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import java.awt.GridLayout;
+import java.awt.event.*;
+public class MainClass{
+
+    public static void main(String[] args){
+
+        JFrame frame = new JFrame();
+        frame.setLayout(new GridLayout(6,0));
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(200,500);
+        frame.setLocation(500,500);
+        frame.setTitle("Купить кофе");
+        frame.setVisible(true);
+
+        
+        final JComboBox selectcoffe = new JComboBox<String>(new String[] {"Раф", "Латте", "Капучино"});
+        frame.add(selectcoffe);
+        
+        final JRadioButton countsugar = new JRadioButton("Добавить сахар?");
+        frame.add(countsugar);
+        
+        final JTextField countcup = new JTextField("Количество чашек?");
+        frame.add(countcup);
+        
+        final JCheckBox cream = new JCheckBox("Заменить молоко на сливки");
+        frame.add(cream);
+        
+        final JButton endbutton = new JButton("Заказать");
+        frame.add(endbutton);
+        
+        final JTextField resultfield= new JTextField("Общая цена");
+        
+        endbutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              
+                float result = 0;
+                
+                float kolvo = Float.parseFloat(countcup.getText());
+                if (selectcoffe.getSelectedItem().equals("Раф")) result+=220*kolvo;
+                else if(selectcoffe.getSelectedItem().equals("Латте")) result+=150*kolvo;
+                else if(selectcoffe.getSelectedItem().equals("Капучино")) result+=210*kolvo;
+                if (countsugar.isSelected()) result+=20*kolvo;
+                if (cream.isSelected()) result+=10*kolvo;
+                
+                frame.add(resultfield);
+                resultfield.setText(String.valueOf(result));
+            }
+        });
+    }
+
+}
